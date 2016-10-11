@@ -158,4 +158,9 @@ public class Plot2DCanvas extends PlotCanvas {
 		 * p2d.grid.getAxe(1).darkLabel.setCorner(0, -0.5);
 		 */
 	}
+
+	@Override
+	public AbstractDrawer getDraw() {
+		return super.getDraw();
+	}
 }

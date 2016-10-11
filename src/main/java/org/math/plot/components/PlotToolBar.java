@@ -1,5 +1,6 @@
 package org.math.plot.components;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.security.*;
@@ -98,6 +99,12 @@ public class PlotToolBar extends JToolBar {
 
             public void actionPerformed(ActionEvent e) {
                 plotCanvas.ActionMode = PlotCanvas.ZOOM;
+                KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+                keyboardFocusManager.focusPreviousComponent();
+
+
+                System.out.println("ZOOM RF " + keyboardFocusManager.getFocusOwner().toString());
+
             }
         });
 

@@ -29,6 +29,7 @@ public class Plot2DPanel extends PlotPanel {
      */
     public Plot2DPanel() {
         super(new Plot2DCanvas());
+        setFocusable(true);
     }
     
     public Plot2DPanel(double[] min, double[] max, String[] axesScales, String[] axesLabels) {
@@ -398,5 +399,7 @@ public class Plot2DPanel extends PlotPanel {
             throw new IllegalArgumentException("Plot type is unknown : " + type);
         }
     }
-    
+    public PlotCanvas getPlotPanelCanvas(){
+        return this.getPlotCanvas();
+    }
 }

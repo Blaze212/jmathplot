@@ -685,4 +685,6 @@ public abstract class PlotPanel extends JPanel {
     public void setFont(Font font) {
         this.font = font;
     }
+
+    public PlotCanvas getPlotCanvas(){return plotCanvas;}
 }

@@ -1,15 +1,10 @@
 package org.math.plot.canvas;
 
-import java.awt.BasicStroke;
-import java.awt.Stroke;
+import java.awt.*;
+
 import org.math.plot.render.AWTDrawer;
 import org.math.plot.utils.FastMath;
 import javax.swing.JFrame;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
@@ -59,6 +54,7 @@ public abstract class PlotCanvas extends JPanel implements MouseListener, MouseM
     public LegendPanel linkedLegendPanel;
     public LinkedList<Plot> plots;
     public LinkedList<Plotable> objects;
+    public double[] lastClosePoint = new double[2];
 
     // ///////////////////////////////////////////
     // ////// Constructor & inits ////////////////
@@ -870,12 +866,20 @@ public abstract class PlotCanvas extends JPanel implements MouseListener, MouseM
     public void mouseMoved(MouseEvent e) {
         mouseCurent[0] = e.getX();
         mouseCurent[1] = e.getY();
+        KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+
         e.consume();
         	for (int i = 0; i < plots.size(); i++) {
         		if (getPlot(i).noted) {
         			double[] _coordNoted = getPlot(i).isSelected(mouseCurent, draw);           
         			if (_coordNoted != null) {
         				getPlot(i).coordNoted = _coordNoted;
+                        System.out.println("MC " + mouseCurent[0] +" " + mouseCurent[1]+ ", Cord " + _coordNoted[0] + " " + _coordNoted[1]);
+                        System.out.println(keyboardFocusManager.getFocusOwner().toString());
+                        if(_coordNoted[0]!=0 && _coordNoted[1] != 0) {
+                            lastClosePoint[0] = _coordNoted[0];
+                            lastClosePoint[1] = _coordNoted[1];
+                        }
         	        	repaint();
         			}
         		}
@@ -963,5 +967,9 @@ public abstract class PlotCanvas extends JPanel implements MouseListener, MouseM
     }
 
     public void componentShown(ComponentEvent e) {
+    }
+
+    public AbstractDrawer getDraw(){
+        return draw;
     }
 }
